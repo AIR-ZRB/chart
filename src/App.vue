@@ -163,6 +163,7 @@ export default {
     },
     mounted() {
         this.chartsInit();
+    
     },
     updated() {
         this.updateCharts();
