@@ -208,10 +208,9 @@ body {
     width: 300px;
     height: 100%;
     position: absolute;
-    background: lightblue;
+    // background: ;
     top: 0;
     right: 0;
-    // left: 0;
     padding: 20px;
     h2 {
         margin-bottom: 30px;
