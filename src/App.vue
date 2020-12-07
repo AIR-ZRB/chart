@@ -66,24 +66,15 @@ export default {
             this.updateCharts();
         },
         updateCharts() {
-            let newData = {};
-            switch (this.chart.type) {
-                case "line":
-                    newData = this.lineCharts();
-                    break;
-                case "bar":
-                    newData = this.barCharts();
-                    break;
-                case "pie":
-                    newData = this.pieCharts();
-            }
-
-            this.myCharts.setOption(newData);
+            const chartType = this.chart.type;
+            chartType === "line" && this.myCharts.setOption(this.lineCharts());
+            chartType === "bar" && this.myCharts.setOption(this.barCharts());
+            chartType === "pie" && this.myCharts.setOption(this.pieCharts());
         },
         // 线形图
         lineCharts() {
             return {
-                title: { text: "Line Chart" },
+                title: { text: this.chart.title },
                 tooltip: {},
                 toolbox: {
                     feature: {
@@ -163,7 +154,6 @@ export default {
     },
     mounted() {
         this.chartsInit();
-    
     },
     updated() {
         this.updateCharts();
