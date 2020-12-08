@@ -48,9 +48,9 @@ export default {
                 { CNName: "折线图", ENName: "line" },
                 { CNName: "柱形图", ENName: "bar" },
                 { CNName: "饼形图", ENName: "pie" },
-                { CNName: "散点图", ENName: "scatter" },
-                { CNName: "关系图", ENName: "graph" },
-                { CNName: "树图", ENName: "tree" },
+                // { CNName: "散点图", ENName: "scatter" },
+                // { CNName: "关系图", ENName: "graph" },
+                // { CNName: "树图", ENName: "tree" },
             ],
             chart: {
                 myCharts: "",
@@ -61,11 +61,11 @@ export default {
         };
     },
     methods: {
-        chartsInit() {
-            this.myCharts = echarts.init(this.$refs.charts);
-            this.updateCharts();
-        },
         updateCharts() {
+            // 先销毁之前的实例，再进行创建
+            echarts.dispose(this.$refs.charts);
+            this.myCharts = echarts.init(this.$refs.charts);
+            // 判断渲染哪个图表
             const chartType = this.chart.type;
             chartType === "line" && this.myCharts.setOption(this.lineCharts());
             chartType === "bar" && this.myCharts.setOption(this.barCharts());
@@ -106,6 +106,9 @@ export default {
         // 饼图
         pieCharts() {
             return {
+                title:{
+                    text: this.chart.title
+                },
                 series: {
                     type: "pie",
                     // roseType: "angle",
@@ -127,7 +130,7 @@ export default {
         barCharts() {
             return {
                 title: {
-                    text: "ECharts 入门示例",
+                    text: this.chart.title,
                 },
                 tooltip: {},
                 legend: {
@@ -153,7 +156,7 @@ export default {
         },
     },
     mounted() {
-        this.chartsInit();
+        this.updateCharts();
     },
     updated() {
         this.updateCharts();
